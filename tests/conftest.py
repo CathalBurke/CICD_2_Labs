@@ -5,7 +5,7 @@ from app.main import app, users
 
 @pytest.fixture(autouse=True)
 def clear_users():
-    users.clear
+    users.clear()
 
 @pytest.fixture
 def client():
