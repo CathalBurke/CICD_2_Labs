@@ -53,3 +53,11 @@ def test_get_users_returns_created_users(client):
     assert len(data) == 1
     assert data[0]["user_id"] == 10
     assert data[0]["name"] == "Alice"
+
+def test_get_existing_user_returns_200(client):
+    client.post("/api/users", json=user_payload(uid=11))
+
+    response = client.get("/api/users/11")
+
+    assert response.status_code == 200
+    assert response.json()["user_id"] == 11
