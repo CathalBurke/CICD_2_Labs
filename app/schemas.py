@@ -3,9 +3,9 @@ from typing import Annotated
 from pydantic import BaseModel, EmailStr, Field, StringConstraints
 
 class UserCreate(BaseModel):
-    userid: int = Field(gt=0)
+    user_id: int = Field(gt=0)
     name: Annotated[str, StringConstraints(min_length=2,max_length=50)]
     email: EmailStr
     age: int = Field(gt=18,lt=120)
-    student_id: Annotated[str, StringConstraints(pattern=r"^s\d{7}$")]
+    student_id: Annotated[str, StringConstraints(pattern=r"^S\d{7}$")]
     
