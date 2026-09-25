@@ -61,3 +61,9 @@ def test_get_existing_user_returns_200(client):
 
     assert response.status_code == 200
     assert response.json()["user_id"] == 11
+
+def test_get_missing_user_returns_404(client):
+    response = client.get("/api/users/999")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "user not found"
