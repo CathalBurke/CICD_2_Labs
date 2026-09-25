@@ -75,3 +75,9 @@ def test_delete_existing_user_returns_204(client):
 
     assert response.status_code == 204
     assert response.content == b''
+
+def test_delete_missing_user_returns_404(client):
+    response = client.delete("/api/users/999")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "User not found"
