@@ -1,0 +1,8 @@
+_pycache_/
+*._pyc
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+app.db
