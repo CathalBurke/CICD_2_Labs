@@ -16,7 +16,7 @@ def health ():
     return {"status": "ok"}
 
 @app.post(
-    "api/users",
+    "/api/users",
     response_model=UserRead,
     status_code=status.HTTP_201_CREATED,
 )
