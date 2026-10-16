@@ -7,9 +7,12 @@ from app.schemas import UserCreate, UserRead
 from app.models import Base, UserDB 
 from app.database import engine, get_db
 
+from app.product_client import get_product_fetcher
+import httpx2 
+
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Lab 3 - FastAPI SQLAlchemy ")
+app = FastAPI(title="Lab5-Two-FastAPI-Microservices-with-HTTPX")
 
 
 @app.get("/health")
@@ -69,3 +72,13 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db.delete(db_user)
     db.commit()
     return
+
+@app.get("/api/products/{product_id}")
+def get_remote_product(product_id: int, fetch_product=Depends(get_product_fetcher)):
+    try:
+        return fetch_product(product_id)
+    except httpx2.HTTPStatusError as e:
+        if e.response.status_code == 404:
+            raise HTTPException(404,detail="Product not found",)
+    except httpx2.RequestError as e:
+        raise HTTPException(503,detail="Product service is unavailable",)
