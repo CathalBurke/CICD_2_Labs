@@ -1,4 +1,3 @@
-import httpx
 import httpx2
 from app.main import app
 from app.product_client import get_product_fetcher
